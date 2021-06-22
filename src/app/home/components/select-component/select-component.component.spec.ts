@@ -35,7 +35,6 @@ describe('SelectComponent', () => {
       fixture.detectChanges();
       httpMock = TestBed.inject(HttpTestingController);
       dataService = TestBed.inject(DataService);
-      dataService.reloadTag.next([]);
     }),
   );
 

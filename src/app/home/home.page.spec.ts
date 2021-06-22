@@ -13,6 +13,7 @@ import { HomePage } from './home.page';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { environment } from 'src/environments/environment';
 import { expectedGetData, tagList } from '../helpers/test.helper';
+import { CalculationPipe } from 'src/app/pipe/calculation.pipe';
 
 describe('HomePage', () => {
   let component: HomePage;
@@ -23,7 +24,7 @@ describe('HomePage', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [HomePage, IssueItemComponent, SelectComponent],
+        declarations: [HomePage, IssueItemComponent, SelectComponent, CalculationPipe],
         imports: [
           IonicModule.forRoot(),
           HttpClientTestingModule,
@@ -50,8 +51,8 @@ describe('HomePage', () => {
     request.forEach((item) => {
       item.flush(expectedGetData);
     });
+    fixture.detectChanges();
     expect(component.dataList).toEqual(expectedGetData);
-    expect(component.tagList).toEqual(tagList);
     expect(component.filter).toEqual([]);
   });
 });

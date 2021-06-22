@@ -71,11 +71,10 @@
         formControlName="text"
       ></ion-textarea>
     </fieldset>
-
     <app-select-component
       (onAddNewTag)="onAddNewTag.emit($event)"
       (onSelect)="addToTags($event)"
-      [selectedTag]="new ? item?.tags : reactForm?.controls['tags']?.value"
+      [selectedTag]="new ? reactForm?.controls['tags']?.value : item?.tags"
     >
     </app-select-component>
   </form>
