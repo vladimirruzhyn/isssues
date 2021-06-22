@@ -60,7 +60,7 @@ export class DataService extends ApiService {
       map(([filter, data]) =>
         filter.length
           ? data.filter((item) => item.tags.find((itemTag) => filter.includes(itemTag)))
-          : data,
+          : data
       ),
     );
   }
