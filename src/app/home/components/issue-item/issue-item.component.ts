@@ -46,9 +46,9 @@ export class IssueItemComponent implements OnInit {
   }
 
   save() {
-    this.edit = false;
     let data: Data = this.reactForm.value;
     this.onEdit.emit(data);
+    this.canceledEdit();
   }
 
   canceledEdit() {

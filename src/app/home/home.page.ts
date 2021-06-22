@@ -4,7 +4,11 @@ import { map, tap } from 'rxjs/operators';
 import { Data } from '../models/data.model';
 import { DataService } from '../service/data.service';
 
-@Component({ selector: 'app-home', templateUrl: 'home.page.html', styleUrls: ['home.page.scss'] })
+@Component({ 
+  selector: 'app-home', 
+  templateUrl: './home.page.html', 
+  styleUrls: ['./home.page.scss'],
+})
 export class HomePage implements OnInit, OnDestroy {
   private subscription = new Subscription();
   tagList: string[];
@@ -15,25 +19,16 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription.add(
-      this.dataService.getAllTag().subscribe((data) => {
-        this.tagList = data;
-      }),
-    );
-    this.subscription.add(
       this.dataService
         .getAllData()
-        .pipe(tap((data) => (this.dataList = data)))
-        .subscribe(),
+        .subscribe((data) => (this.dataList = data)),
     );
     this.subscription.add(
       this.dataService
         .getFilter()
-        .pipe(tap((data) => (this.filter = data)))
-        .subscribe(),
+        .subscribe((data) => (this.filter = data)),
     );
   }
-
-  ngAfterViewInit() {}
 
   deleteData(data: Data): void {
     this.subscription.add(this.dataService.delete(data).subscribe());

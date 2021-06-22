@@ -13,11 +13,11 @@ export class DataService extends ApiService {
 
   public dataList$: Observable<Data[]> = this.dataList.asObservable();
 
-  public reloadTag: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  protected reloadTag: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
   public reloadTag$: Observable<string[]> = this.reloadTag.asObservable();
 
-  public filter: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  protected filter: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
   public filter$: Observable<string[]> = this.filter.asObservable();
 
@@ -32,7 +32,7 @@ export class DataService extends ApiService {
     return this.get<Data>().pipe(
       switchMap((dataList: Data[]) => {
         const tagList = dataList.reduce(
-          (acc, item) => acc.concat(item.tags.filter((tegitem) => !acc.includes(tegitem))),
+          (acc, item) => acc.concat(item.tags.filter((tagItem) => !acc.includes(tagItem))),
           [],
         );
         this.reloadTag.next(tagList);
@@ -90,7 +90,7 @@ export class DataService extends ApiService {
   }
 
   postData(data: Data): Observable<Data> {
-    data.id = this.dataList.value.length;
+    data.id = Date.now();
     const dataList = this.dataList.value;
     dataList.push(data);
     this.dataList.next(dataList);

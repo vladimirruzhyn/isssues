@@ -20,14 +20,14 @@ describe('DataService', () => {
     expect(dataService).toBeTruthy();
   });
 
-  it('getAllData()', (done) => {
+  it('Retrieving all data', (done) => {
     dataService.getAllData().subscribe((dataList) => {
       expect(dataList).toEqual(expectedGetData, 'expected heroes');
       done();
     });
   });
 
-  it('addNewTag()', (done) => {
+  it('Tagging testing', (done) => {
     Object.defineProperties(dataService, {
       reloadTag: {
         get: () => reloadTag,
@@ -46,21 +46,7 @@ describe('DataService', () => {
     });
   });
 
-  it('setFilter()', (done) => {
-    dataService
-      .addFilter(['test'])
-      .pipe(
-        switchMap((filter) => {
-          return dataService.getAllData();
-        }),
-      )
-      .subscribe((data) => {
-        expect(data).toEqual(expectedGetData.filter((item) => item.tags.includes('test')));
-        done();
-      });
-  });
-
-  it('getFilter()', (done) => {
+  it('Testing get filter value', (done) => {
     dataService
       .addFilter(['test'])
       .pipe(
@@ -70,6 +56,20 @@ describe('DataService', () => {
       )
       .subscribe((data) => {
         expect(data).toEqual(['test']);
+        done();
+      });
+  });
+
+  it('Testing the filter setting', (done) => {
+    dataService
+      .addFilter(['test'])
+      .pipe(
+        switchMap((filter) => {
+          return dataService.getAllData();
+        }),
+      )
+      .subscribe((data) => {
+        expect(data).toEqual(expectedGetData.filter((item) => item.tags.includes('test')));
         done();
       });
   });

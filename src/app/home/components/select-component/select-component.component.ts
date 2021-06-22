@@ -27,20 +27,20 @@ export class SelectComponent implements OnInit, OnDestroy {
     this.subscription.add(this.dataService.getAllTag().subscribe((data) => (this.tagList = data)));
   }
 
-  compareWith(item, select): boolean {
+  compareWith(item: string, select: string): boolean {
     return item == select;
   }
 
-  add = (value) => {
+  add = (value: string): string => {
     this.onAddNewTag.emit(value);
     return value;
   };
 
-  change($event) {
+  change($event: string[]): void {
     this.onSelect.emit($event);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }
