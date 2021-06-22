@@ -5,18 +5,17 @@
     <app-select-component
       (onAddNewTag)="addNewTag($event)"
       (onSelect)="addFilter($event)"
-      [selectedTag]="filter"
+      [selectedTag]="(filter$ | async)"
     ></app-select-component>
   </ion-item>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ng-container *ngFor="let item of dataList">
+  <ng-container *ngFor="let item of (dataList$ | async)">
     <app-issue-item
       (onAddNewTag)="addNewTag($event)"
       (onDelete)="deleteData($event)"
       (onEdit)="editData($event)"
-      [tagList]="tagList"
       [item]="item"
     ></app-issue-item>
     <hr />
@@ -25,6 +24,5 @@
     (onAddNewTag)="addNewTag($event)"
     [new]="true"
     (onEdit)="addNew($event)"
-    [tagList]="tagList"
   ></app-issue-item>
 </ion-content>

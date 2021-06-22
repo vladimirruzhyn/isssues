@@ -9,7 +9,7 @@ export class CalculationPipe implements PipeTransform {
     return value;
   }
 
-  calculationString(data: string): string {
+  private calculationString(data: string): string {
     let result: string = ''; // math result
     let first: string = ''; // first number
     let resultStr: string = ''; // result string
@@ -96,7 +96,7 @@ export class CalculationPipe implements PipeTransform {
     return `<span style="text-decoration: underline; cursor: pointer;" title="${form}">${result}</span>`;
   }
 
-  calculate(first: string, action: string, second: string): string {
+  private calculate(first: string, action: string, second: string): string {
     switch (action) {
       case '+':
         return (parseInt(first) + parseInt(second)).toString();

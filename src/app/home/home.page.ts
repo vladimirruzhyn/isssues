@@ -1,53 +1,40 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Data } from '../models/data.model';
+import { issues } from '../models/issues.model';
 import { DataService } from '../service/data.service';
 
-@Component({ 
-  selector: 'app-home', 
-  templateUrl: './home.page.html', 
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit, OnDestroy {
   private subscription = new Subscription();
-  tagList: string[];
-  dataList: Data[];
-  filter: string[];
+  dataList$: Observable<issues[]>;
+  filter$: Observable<string[]>;
 
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.subscription.add(
-      this.dataService
-        .getAllData()
-        .subscribe((data) => (this.dataList = data)),
-    );
-    this.subscription.add(
-      this.dataService
-        .getFilter()
-        .subscribe((data) => (this.filter = data)),
-    );
+    this.dataList$ = this.dataService.getAllData();
+    this.filter$ = this.dataService.getFilter();
   }
 
-  deleteData(data: Data): void {
+  deleteData(data: issues): void {
     this.subscription.add(this.dataService.delete(data).subscribe());
   }
 
-  editData(data: Data): void {
-    this.subscription.add(this.dataService.putData(data).subscribe());
+  editData(data: issues): void {
+    this.subscription.add(this.dataService.updateIssue(data).subscribe());
   }
 
-  addNew(data: Data): void {
-    this.subscription.add(this.dataService.postData(data).subscribe());
+  addNew(data: issues): void {
+    this.subscription.add(this.dataService.createIssue(data).subscribe());
   }
 
   addFilter(filter: string[]): void {
     this.subscription.add(this.dataService.addFilter(filter).subscribe());
-  }
-
-  getAllTag(): Observable<string[]> {
-    return this.dataService.getAllTag().pipe(map((data) => (this.tagList = data)));
   }
 
   ngOnDestroy() {

@@ -14,6 +14,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { environment } from 'src/environments/environment';
 import { expectedGetData, tagList } from '../helpers/test.helper';
 import { CalculationPipe } from 'src/app/pipe/calculation.pipe';
+import { tap } from 'rxjs/operators';
 
 describe('HomePage', () => {
   let component: HomePage;
@@ -51,8 +52,16 @@ describe('HomePage', () => {
     request.forEach((item) => {
       item.flush(expectedGetData);
     });
+    component.dataList$.pipe(
+      tap((data) => {
+        expect(data).toEqual(expectedGetData);
+      }),
+    );
+    component.filter$.pipe(
+      tap((data) => {
+        expect(data).toEqual([]);
+      }),
+    );
     fixture.detectChanges();
-    expect(component.dataList).toEqual(expectedGetData);
-    expect(component.filter).toEqual([]);
   });
 });

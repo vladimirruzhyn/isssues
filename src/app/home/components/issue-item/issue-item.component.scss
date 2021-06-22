@@ -24,6 +24,7 @@
 
 ion-textarea {
     --padding-top: none;
+    min-height: 20px;
 }
 
 .native-input[disabled].sc-ion-input-md {

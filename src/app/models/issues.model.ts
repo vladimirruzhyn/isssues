@@ -1,4 +1,4 @@
-export class Data {
+export class issues {
   id?: number;
   title: string;
   text: string;

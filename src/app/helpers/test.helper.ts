@@ -1,6 +1,6 @@
-import { Data } from '../models/data.model';
+import { issues } from '../models/issues.model';
 
-export const expectedGetData: Data[] = [
+export const expectedGetData: issues[] = [
   {
     id: 1,
     title: 'This is an item',

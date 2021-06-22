@@ -28,7 +28,7 @@ export class SelectComponent implements OnInit, OnDestroy {
   }
 
   compareWith(item: string, select: string): boolean {
-    return item == select;
+    return item === select;
   }
 
   add = (value: string): string => {
