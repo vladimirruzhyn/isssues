@@ -2,25 +2,25 @@
     {
         "id": 0,
         "title": "This is an item",
-        "text": "This is a description of the item, it mightdescribe a bug/task/comment, itcan also display <a href=” www.google.com ”>Links</a>”",
+        "text": "This is a description of the item, it mightdescribe a bug/task/comment, itcan also display <a href='https://www.google.com'>Links</a>",
         "tags": ["bug", "issue"]
     },
     {
         "id": 1,
         "title": "This is an item",
-        "text": "This is a description of the item, it mightdescribe a bug/task/comment, itcan also display <a href=” www.google.com ”>Links</a>”",
+        "text": "This is a description of the item, it mightdescribe a bug/task/comment, itcan also display <a href='https://www.google.com'>Links</a>",
         "tags": ["bug", "issue", "test"]
     },
     {
         "id": 2,
         "title": "This is an item",
-        "text": "This is a description of the item, it mightdescribe a bug/task/comment, itcan also display <a href=” www.google.com ”>Links</a>”",
+        "text": "This is a description of the item, it mightdescribe a bug/task/comment, itcan also display <a href='https://www.google.com'>Links</a>",
         "tags": [ "test"]
     },
     {
         "id": 3,
         "title": "This is an item",
-        "text": "This is a description of the item, it mightdescribe a bug/task/comment, itcan also display <a href=” www.google.com ”>Links</a>”",
+        "text": "This is a description of the item, it mightdescribe a bug/task/comment, itcan also display <a href='https://www.google.com'>Links</a>",
         "tags": ["etc"]
     }
 ]
