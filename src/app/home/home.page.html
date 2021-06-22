@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <div class="title">Issues</div>
+  <ion-item>
+    <ion-label slot="start">Filter:</ion-label>
+    <app-select-component
+      (onAddNewTag)="addNewTag($event)"
+      (onSelect)="addFilter($event)"
+      [selectedTag]="filter"
+    ></app-select-component>
+  </ion-item>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container *ngFor="let item of dataList">
+    <app-issue-item
+      (onAddNewTag)="addNewTag($event)"
+      (onDelete)="deleteData($event)"
+      (onEdit)="editData($event)"
+      [tagList]="tagList"
+      [item]="item"
+    ></app-issue-item>
+    <hr />
+  </ng-container>
+  <app-issue-item
+    (onAddNewTag)="addNewTag($event)"
+    [new]="true"
+    (onEdit)="addNew($event)"
+    [tagList]="tagList"
+  ></app-issue-item>
+</ion-content>

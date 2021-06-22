@@ -1,0 +1,42 @@
+.title {
+    font-weight: bold;
+    margin-bottom: 6px;
+
+}
+
+.body {
+    margin-bottom: 6px;
+    padding: 5px;
+    div {
+        padding: 6px;
+    }
+}
+
+.edit  {
+    margin-left: 5px;
+    width: 98%;
+    --padding-start: 2px;
+    --padding-bottom: 2px;
+    margin-bottom: 7px;
+    border-bottom: 1px solid;
+    border-color: grey;
+}
+
+ion-textarea {
+    --padding-top: none;
+}
+
+.native-input[disabled].sc-ion-input-md {
+    opacity: 1;
+}
+
+fieldset {
+    padding: 0px;
+    border-width: 1px;
+    border-color: ghostwhite;
+    border-radius: 10px;
+    legend {
+        font-size: 10px;
+        margin-left: 10px;
+    }
+}

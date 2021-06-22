@@ -1,0 +1,52 @@
+#container {
+  text-align: center;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+hr {
+  background-color: black;
+  width: 80vw;
+}
+
+ion-header {
+  background-color: white;
+}
+
+ion-item {
+  overflow: unset;
+  ion-label {
+    flex: 0 0 85px;
+    font-weight: bold;
+    margin-right: 0px;
+  }
+}
+
+.title {  
+  text-align: center;
+  padding-top: 11px;
+  font-weight: bold;
+  font-size: 20px;
+}

@@ -1,0 +1,98 @@
+<ion-grid>
+  <ion-row>
+    <ion-col size-sm="12" size-xs="12" size-md="9" size-lg="10">
+      <ng-container
+        *ngTemplateOutlet="edit || new ? editTmp : viewTmp; context: { item: item }"
+      ></ng-container>
+    </ion-col>
+    <ion-col size-sm="12" size-xs="12" size-md="3" size-lg="2">
+      <ng-container
+        *ngTemplateOutlet="edit || new ? editAction : viewAction; context: { new: new }"
+      ></ng-container>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ng-template #editAction let-new="new">
+  <ion-row>
+    <ion-col size-sm="12" size-xs="12" size="6">
+      <ion-button
+        id="save"
+        (click)="save()"
+        [disabled]="!reactForm?.valid"
+        expand="full"
+        color="primary"
+      >
+        Save
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="!new" size-sm="12" size-xs="12" size="6">
+      <ion-button id="cancel" (click)="canceledEdit()" expand="full" color="secondary">
+        Cancel
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ng-template>
+
+<ng-template #viewAction>
+  <ion-row>
+    <ion-col size-sm="12" size-xs="12" size="6">
+      <ion-button id="edit" (click)="edit = true" expand="full" color="primary"> Edit </ion-button>
+    </ion-col>
+    <ion-col size-sm="12" size-xs="12" size="6">
+      <ion-button id="delete" (click)="showDeleteConfirm()" expand="full" color="secondary">
+        Delete
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ng-template>
+
+<ng-template #editTmp>
+  <form [formGroup]="reactForm">
+    <fieldset class="title">
+      <legend>Title</legend>
+      <ion-input
+        name="title"
+        placeholder="Please, input title"
+        required
+        class="edit"
+        formControlName="title"
+      ></ion-input>
+    </fieldset>
+
+    <fieldset class="body">
+      <legend>Description</legend>
+      <ion-textarea
+        autoGrow="true"
+        name="text"
+        placeholder="Please, input text"
+        required
+        class="edit"
+        formControlName="text"
+      ></ion-textarea>
+    </fieldset>
+
+    <app-select-component
+      (onAddNewTag)="onAddNewTag.emit($event)"
+      (onSelect)="addToTags($event)"
+      [selectedTag]="new ? item?.tags : reactForm?.controls['tags']?.value"
+    >
+    </app-select-component>
+  </form>
+</ng-template>
+
+<ng-template #viewTmp let-item="item">
+  <fieldset class="title">
+    <legend>Title</legend>
+    <ion-input disabled [value]="item?.title"></ion-input>
+  </fieldset>
+
+  <fieldset class="body">
+    <legend>Description</legend>
+    <div [innerHTML]="item?.text | calculat"></div>
+  </fieldset>
+
+  <ion-chip *ngFor="let tab of item?.tags" color="primary">
+    <ion-label color="secondary">{{ tab }}</ion-label>
+  </ion-chip>
+</ng-template>

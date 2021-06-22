@@ -1,0 +1,13 @@
+<ng-select
+  [multiple]="true"
+  [ngModel]="selectedTag"
+  [compareWith]="compareWith"
+  [addTag]="add"
+  [searchable]="true"
+  (change)="change($event)"
+  [closeOnSelect]="false"
+>
+  <ng-option [value]="item" *ngFor="let item of tagList">
+    {{ item }}
+  </ng-option>
+</ng-select>
