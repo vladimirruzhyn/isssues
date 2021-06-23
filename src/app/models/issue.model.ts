@@ -1,4 +1,4 @@
-export class issues {
+export class Issue {
   id?: number;
   title: string;
   text: string;

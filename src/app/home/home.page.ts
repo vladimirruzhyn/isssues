@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { issues } from '../models/issues.model';
+import { Issue } from '../models/issue.model';
 import { DataService } from '../service/data.service';
 
 @Component({
@@ -9,27 +8,22 @@ import { DataService } from '../service/data.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit, OnDestroy {
+export class HomePage {
   private subscription = new Subscription();
-  dataList$: Observable<issues[]>;
-  filter$: Observable<string[]>;
+  dataList$: Observable<Issue[]> = this.dataService.getAllData();
+  filter$: Observable<string[]> = this.dataService.getFilter();
 
   constructor(private dataService: DataService) {}
 
-  ngOnInit() {
-    this.dataList$ = this.dataService.getAllData();
-    this.filter$ = this.dataService.getFilter();
-  }
-
-  deleteData(data: issues): void {
+  deleteData(data: Issue): void {
     this.subscription.add(this.dataService.delete(data).subscribe());
   }
 
-  editData(data: issues): void {
+  editData(data: Issue): void {
     this.subscription.add(this.dataService.updateIssue(data).subscribe());
   }
 
-  addNew(data: issues): void {
+  addNew(data: Issue): void {
     this.subscription.add(this.dataService.createIssue(data).subscribe());
   }
 

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { issues } from 'src/app/models/issues.model';
+import { Issue } from 'src/app/models/issue.model';
 import { ApiService } from './api.service';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -9,9 +9,9 @@ import { map, switchMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DataService extends ApiService {
-  protected dataList: BehaviorSubject<issues[]> = new BehaviorSubject<issues[]>([]);
+  protected dataList: BehaviorSubject<Issue[]> = new BehaviorSubject<Issue[]>([]);
 
-  public dataList$: Observable<issues[]> = this.dataList.asObservable();
+  public dataList$: Observable<Issue[]> = this.dataList.asObservable();
 
   protected reloadTag: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
@@ -27,8 +27,8 @@ export class DataService extends ApiService {
     if (this.reloadTag.value.length) {
       return this.reloadTag$;
     }
-    return this.get<issues>().pipe(
-      switchMap((dataList: issues[]) => {
+    return this.get<Issue>().pipe(
+      switchMap((dataList: Issue[]) => {
         const tagList = dataList.reduce(
           (acc, item) => acc.concat(item.tags.filter((tagItem) => !acc.includes(tagItem))),
           [],
@@ -55,7 +55,7 @@ export class DataService extends ApiService {
     return of(tagList);
   }
 
-  filteredData(): Observable<issues[]> {
+  filteredData(): Observable<Issue[]> {
     return combineLatest([this.filter, this.dataList$]).pipe(
       map(([filter, data]) =>
         filter.length
@@ -65,11 +65,11 @@ export class DataService extends ApiService {
     );
   }
 
-  getAllData(): Observable<issues[]> {
+  getAllData(): Observable<Issue[]> {
     if (this.dataList.value.length) {
       return this.filteredData();
     }
-    return this.get<issues>().pipe(
+    return this.get<Issue>().pipe(
       switchMap((data) => {
         this.dataList.next(data);
         return this.filteredData();
@@ -77,12 +77,12 @@ export class DataService extends ApiService {
     );
   }
 
-  updateIssue(data: issues): Observable<issues> {
+  updateIssue(data: Issue): Observable<Issue> {
     this.dataList.next(this.dataList.value.map((item) => (item.id === data.id ? data : item)));
     return of(data);
   }
 
-  createIssue(data: issues): Observable<issues> {
+  createIssue(data: Issue): Observable<Issue> {
     data.id = Date.now();
     const dataList = this.dataList.value;
     dataList.push(data);
@@ -90,7 +90,7 @@ export class DataService extends ApiService {
     return of(data);
   }
 
-  delete(data: issues): Observable<string> {
+  delete(data: Issue): Observable<string> {
     this.dataList.next(this.dataList.value.filter((item) => item.id !== data.id));
     return of('Ok');
   }

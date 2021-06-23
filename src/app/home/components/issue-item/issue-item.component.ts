@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import { issues } from 'src/app/models/issues.model';
+import { Issue } from 'src/app/models/issue.model';
 
 @Component({
   selector: 'app-issue-item',
@@ -18,16 +18,16 @@ import { issues } from 'src/app/models/issues.model';
 })
 export class IssueItemComponent implements OnInit {
   @Output()
-  onDelete: EventEmitter<issues> = new EventEmitter<issues>();
+  onDelete: EventEmitter<Issue> = new EventEmitter<Issue>();
 
   @Output()
-  onEdit: EventEmitter<issues> = new EventEmitter<issues>();
+  onEdit: EventEmitter<Issue> = new EventEmitter<Issue>();
 
   @Output()
   onAddNewTag: EventEmitter<string> = new EventEmitter<string>();
 
   @Input()
-  item: issues;
+  item: Issue;
 
   @Input()
   new: boolean;
@@ -46,7 +46,7 @@ export class IssueItemComponent implements OnInit {
   }
 
   save() {
-    let data: issues = this.reactForm.value;
+    let data: Issue = this.reactForm.value;
     this.onEdit.emit(data);
     this.resetForm();
   }
