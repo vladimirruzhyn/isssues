@@ -9,13 +9,9 @@ import { map, switchMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DataService extends ApiService {
-  protected dataList: BehaviorSubject<Issue[]> = new BehaviorSubject<Issue[]>([]);
+  public dataList: BehaviorSubject<Issue[]> = new BehaviorSubject<Issue[]>([]);
 
-  public dataList$: Observable<Issue[]> = this.dataList.asObservable();
-
-  protected reloadTag: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
-
-  public reloadTag$: Observable<string[]> = this.reloadTag.asObservable();
+  public reloadTag: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
   public filter: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
@@ -25,7 +21,7 @@ export class DataService extends ApiService {
 
   getAllTag(): Observable<string[]> {
     if (this.reloadTag.value.length) {
-      return this.reloadTag$;
+      return this.reloadTag;
     }
     return this.get<Issue>().pipe(
       switchMap((dataList: Issue[]) => {
@@ -34,7 +30,7 @@ export class DataService extends ApiService {
           [],
         );
         this.reloadTag.next(tagList);
-        return this.reloadTag$;
+        return this.reloadTag;
       }),
     );
   }
@@ -56,7 +52,7 @@ export class DataService extends ApiService {
   }
 
   filteredData(): Observable<Issue[]> {
-    return combineLatest([this.filter, this.dataList$]).pipe(
+    return combineLatest([this.filter, this.dataList]).pipe(
       map(([filter, data]) =>
         filter.length
           ? data.filter((item) => item.tags.find((itemTag) => filter.includes(itemTag)))
